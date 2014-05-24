@@ -16,12 +16,11 @@ class wordgun {
   }
 
   function wordgun_admin_pages() {
-    add_users_page("users.php", "GJ User Approve", 'administrator', "gj_user_approve", "gj_user_approve_admin_options");
-    add_menu_page( 'WordGun', 'WordGun', 'administrator', 'wordgun', 'wordgun_admin_options', 'dashicons-admin-generic', '62.161' );
+    add_menu_page('WordGun', 'WordGun', 'administrator', 'wordgun', array(&$this, 'wordgun_admin_options'), 'dashicons-admin-generic', '62.161');
   }
 
   function wordgun_admin_options() {
-    include ('admin/gj-wordgun-options.php');
+    include('admin/wordgun-options.php');
   }
 
 }
