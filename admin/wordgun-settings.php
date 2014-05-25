@@ -1,6 +1,6 @@
 <?php
 
-if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_mailgun') {
+if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_settings') {
 
   $wg_bootstrap = $_POST['wg_bootstrap'];
   update_option('wg_bootstrap', $wg_bootstrap); ?>

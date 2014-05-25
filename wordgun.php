@@ -42,14 +42,68 @@ class wordgun {
     }
   }
 
-  function wordgun_shortcode($atts) {
-    $a = shortcode_atts( array(
-        'foo' => 'something',
-        'bar' => 'something else',
-    ), $atts );
+  function wordgun_shortcode() {
 
-    return "foo = {$a['foo']}";
-}
+    $wordgun =  '
+      <form class="form-horizontal" role="form" id="wordgun" method="POST">
+        <input class="hidden" type="email" name="email_2" value="">
+    ';
+
+    if(get_option('wg_name') === 'enabled') {
+    
+      $name =  '
+        <div class="form-group">
+          <label for="wg_name" class="control-label">Name</label>
+          <input type="name" name="wg_name" class="form-control" placeholder="Name" required>
+        </div>
+      ';
+
+      $wordgun .= $name;
+    }
+
+    if(get_option('wg_email') === 'enabled') {
+
+      $email = '
+        <div class="form-group">
+          <label for="wg_email" class="control-label">Email</label>
+          <input type="email" name="wg_email" class="form-control" placeholder="Email" required>
+        </div>
+      ';
+
+      $wordgun .= $email;
+    }
+
+    if(get_option('wg_subject') === 'enabled') {
+
+      $subject = '
+        <div class="form-group">
+          <label for="wg_subject" class="control-label">Subject</label>
+          <input class="form-control" name="wg_subject" rows="6" placeholder="Subject" required>
+        </div>
+      ';
+
+      $wordgun .= $subject;
+    }
+
+    if(get_option('wg_message') === 'enabled') {
+
+      $message = '
+        <div class="form-group">
+          <label for="wg_message" class="control-label">Message</label>
+          <textarea class="form-control" name="wg_message" rows="6" placeholder="Message" required></textarea>
+        </div>
+      ';
+
+      $wordgun .= $message;
+    }
+
+    $wordgun .= '
+        <button type="submit" class="btn btn-default">Send</button>
+      </form>
+    ';
+
+    return $wordgun;
+  }
 
 
 }
