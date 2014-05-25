@@ -45,7 +45,7 @@ class wordgun {
   function wordgun_shortcode() {
 
     $wordgun =  '
-      <form class="form-horizontal" role="form" id="wordgun" method="POST">
+      <form class="form" role="form" id="wordgun" method="POST">
         <input class="hidden" type="email" name="email_2" value="">
     ';
 
