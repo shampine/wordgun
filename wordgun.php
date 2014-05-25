@@ -22,7 +22,7 @@ class wordgun {
   }
 
   function wordgun_admin_options() {
-    include('admin/wordgun-options.php');
+    include_once('admin/wordgun-options.php');
   }
 
   function wordgun_scripts() {

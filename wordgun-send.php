@@ -4,7 +4,7 @@
 * a valid API key from Mailgun.
 */
 
-require_once('../wp-load.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
 
 if(empty($_POST) || !isset($_POST) || !empty($_POST['email_2'])) {
 
@@ -42,22 +42,15 @@ function ajaxResponse($status, $message, $data, $mg = NULL) {
 
 function sendMailgun($data) {
 
-  global $environment;
+  $name = isset($data['wg_name']) ? $data['wg_name'] : '';
+  $email = isset($data['wg_email']) ? $data['wg_email'] : '';
+  $content = isset($data['wg_message']) ? $data['wg_message'] : '';
 
-  if($data['form'] === 'form-contact') {
-
-    $name = isset($data['wg_name']) ? $data['wg_name'] : '';
-    $email = isset($data['wg_email']) ? $data['wg_email'] : '';
-    $subject = 
-    $content = isset($data['wg_message']) ? $data['wg_message'] : '';
-
-    $messageBody = "Contact: $name ($email)\n\nMessage: $content";
-
-  }
+  $messageBody = "Contact: $name ($email)\n\nMessage: $content";
 
   $config = array();
   $config['api_key'] = get_option('mg_key');
-  $config['api_url'] = 'https://api.mailgun.net/v2/'.(get_option('mg_domain').'/messages';
+  $config['api_url'] = 'https://api.mailgun.net/v2/'.(get_option('mg_domain')).'/messages';
 
   $message = array();
   $message['from'] = $email;
