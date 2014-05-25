@@ -18,7 +18,7 @@ class wordgun {
   }
 
   function wordgun_admin_pages() {
-    add_menu_page('WordGun', 'WordGun', 'administrator', 'wordgun', array(&$this, 'wordgun_admin_options'), 'dashicons-admin-generic', '62.161');
+    add_menu_page('WordGun', 'WordGun', 'administrator', 'wordgun', array(&$this, 'wordgun_admin_options'), 'dashicons-email-alt', '102.161');
   }
 
   function wordgun_admin_options() {
