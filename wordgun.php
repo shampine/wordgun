@@ -98,7 +98,9 @@ class wordgun {
     }
 
     $wordgun .= '
-        <button type="submit" class="btn btn-default">Send</button>
+        <div class="form-group">
+          <button type="submit" class="btn">Send</button>
+        </div>
       </form>
     ';
 
