@@ -26,7 +26,10 @@ class wordgun {
   }
 
   function wordgun_scripts() {
-    if(shortcode_exists('wordgun')) {
+
+    global $post;
+
+    if(shortcode_exists('wordgun') && stripos($post->post_content,'[wordgun]') !== false) {
 
       $pluginDIR = plugins_url().'/wordgun/';
       $parameters = array(
@@ -39,7 +42,9 @@ class wordgun {
       if(get_option('wg_bootstrap') === 'enabled') {
         wp_enqueue_style('wordgun-bootstrap', $pluginDIR.'css/bootstrap.min.css');
       }
+
     }
+
   }
 
   function wordgun_shortcode() {
