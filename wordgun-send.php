@@ -40,7 +40,8 @@ if(empty($_POST) || !isset($_POST) || !empty($_POST['email_2'])) {
 
 }
 
-function ajaxResponse($status, $message, $data, $mg = NULL) {
+function ajaxResponse($status, $message, $data = NULL, $mg = NULL) {
+
   $response = array (
     'status' => $status,
     'message' => $message,
@@ -48,7 +49,9 @@ function ajaxResponse($status, $message, $data, $mg = NULL) {
     'mailgun' => $mg
     );
   $output = json_encode($response);
+
   exit($output);
+
 }
 
 function sendMailgun($data) {
@@ -78,14 +81,14 @@ function sendMailgun($data) {
   curl_setopt($curl, CURLOPT_USERPWD, "api:{$config['api_key']}");
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-  curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1);
   curl_setopt($curl, CURLOPT_POST, true); 
-  curl_setopt($curl, CURLOPT_POSTFIELDS,$message);
+  curl_setopt($curl, CURLOPT_POSTFIELDS, $message);
 
   $result = curl_exec($curl);
-
   curl_close($curl);
+
   return $result;
 
 }

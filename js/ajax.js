@@ -19,8 +19,8 @@ jQuery(document).ready(function($) {
         url      : mailgunURL,
         data     : $(this).serialize(),
         success  : function(data) {
-          responseSuccess(data);
           console.log(data);
+          responseSuccess(data);
         },
         error  : function(data) {
           console.log('Silent failure.');
@@ -36,9 +36,9 @@ jQuery(document).ready(function($) {
     response = JSON.parse(data);
 
     if(response.status === 'success') {
-      $('#wordgun').html('<p class="message">Thanks for reaching out, I will contact you soon.</p>');
+      $('#wordgun').html('<p class="wordgun-message">Thanks for reaching out, I will contact you soon.</p>');
     } else {
-      $('#wordgun').html('<p class="message">An error has been encountered, your form was not received.</p>');
+      $('#wordgun').html('<p class="wordgun-message">An error has been encountered, your form was not received.</p>');
     }
 
 
