@@ -36,7 +36,7 @@ class wordgun {
         'dir' => $pluginDIR
         );
 
-      wp_enqueue_script('wordgun-ajax', $pluginDIR.'js/ajax.js');
+      wp_enqueue_script('wordgun-ajax', $pluginDIR.'js/ajax.js', false, null, true);
       wp_localize_script('wordgun-ajax', 'wordgun', $parameters );
 
       if(get_option('wg_bootstrap') === 'enabled') {
@@ -49,9 +49,12 @@ class wordgun {
 
   function wordgun_shortcode() {
 
+    $nonce = wp_create_nonce('wordgun');
+
     $wordgun =  '
       <form class="form" role="form" id="wordgun" method="POST">
         <input class="hidden" type="email" name="email_2" value="">
+        <input class="hidden" type="text" name="nonce" value="'.$nonce.'"
     ';
 
     if(get_option('wg_name') === 'enabled') {

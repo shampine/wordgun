@@ -6,24 +6,35 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
 
+
 if(empty($_POST) || !isset($_POST) || !empty($_POST['email_2'])) {
 
-  ajaxResponse('error', 'POST was empty.', $dataString);
+  ajaxResponse('error', 'POST cannot be empty.');
 
 } else {
 
   $dataString = implode($_POST,",");
   $data = $_POST;
 
-  $mailgun = sendMailgun($data);
+  $nonce = $data['nonce'];
 
-  if($mailgun) {
+  if(wp_verify_nonce($nonce, 'wordgun') !== false) {
 
-    ajaxResponse('success', 'Great success.', $dataString, $mailgun);
+    $mailgun = sendMailgun($data);
+
+    if($mailgun) {
+
+      ajaxResponse('success', 'Great success, message queued.', $dataString, $mailgun);
+
+    } else {
+
+      ajaxResponse('error', 'Mailgun did not connect properly.', $dataString);
+
+    }
 
   } else {
 
-    ajaxResponse('error', 'Mailgun did not connect properly.', $dataString);
+    ajaxResponse('error', 'Nonce check cannot fail.');
 
   }
 
