@@ -1,8 +1,6 @@
 jQuery(document).ready(function($) {
 
-  var mailgunURL, mailgun, response;
-
-  mailgunURL = wordgun.dir + '/wordgun-send.php';
+  var response;
 
   $('#wordgun').on('submit',function(e) {
 
@@ -14,7 +12,7 @@ jQuery(document).ready(function($) {
     $.post( wordgun.ajaxurl, {
           action : 'send_wordgun',
           nonce : wordgun.nonce,
-          post : $('#wordgun').serialize()
+          post : $(this).serialize()
       },
       function(response) {
           console.log(response);
@@ -34,7 +32,6 @@ jQuery(document).ready(function($) {
     } else {
       $('#wordgun').html('<p class="wordgun-message">An error has been encountered, your form was not sent.</p>');
     }
-
 
   }
 

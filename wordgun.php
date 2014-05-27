@@ -42,7 +42,7 @@ class wordgun {
         'nonce' => wp_create_nonce('wordgun')
         );
 
-      wp_enqueue_script('wordgun-ajax', plugins_url().'/wordgun/js/ajax.js', false, null, true);
+      wp_enqueue_script('wordgun-ajax', plugins_url().'/wordgun/js/ajax.js', array('jquery'), null, true);
       wp_localize_script('wordgun-ajax', 'wordgun', $parameters );
 
       if(get_option('wg_bootstrap') === 'enabled') {
