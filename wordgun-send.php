@@ -4,37 +4,40 @@
 * a valid API key from Mailgun.
 */
 
-require_once($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
+function sendWordgun() {
 
+  if(empty($_POST) || !isset($_POST) || !empty($_POST['email_2'])) {
 
-if(empty($_POST) || !isset($_POST) || !empty($_POST['email_2'])) {
-
-  ajaxResponse('error', 'POST cannot be empty.');
-
-} else {
-
-  $dataString = implode($_POST,",");
-  $data = $_POST;
-
-  $nonce = $data['nonce'];
-
-  if(wp_verify_nonce($nonce, 'wordgun') !== false) {
-
-    $mailgun = sendMailgun($data);
-
-    if($mailgun) {
-
-      ajaxResponse('success', 'Great success, message queued.', $dataString, $mailgun);
-
-    } else {
-
-      ajaxResponse('error', 'Mailgun did not connect properly.', $dataString);
-
-    }
+    ajaxResponse('error', 'POST cannot be empty.');
 
   } else {
 
-    ajaxResponse('error', 'Nonce check cannot fail.');
+    $data = $_POST;
+
+    $dataString = $_POST['post'];
+    parse_str($dataString, $dataArray);
+
+    $nonce = $data['nonce'];
+
+    if(wp_verify_nonce($nonce, 'wordgun') !== false) {
+
+      $mailgun = sendMailgun($dataArray);
+
+      if($mailgun) {
+
+        ajaxResponse('success', 'Great success, message queued.', $dataArray, $mailgun);
+
+      } else {
+
+        ajaxResponse('error', 'Mailgun did not connect properly.', $dataArray);
+
+      }
+
+    } else {
+
+      ajaxResponse('error', 'Nonce check cannot fail.');
+
+    }
 
   }
 

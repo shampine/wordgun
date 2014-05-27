@@ -9,12 +9,16 @@ Author URI: http://patrickshampine.com
 Author Email: patrick@patrickshampine.com
 */
 
+include_once('wordgun-send.php');
+
 class wordgun {
 
   function __construct() {
     add_action('admin_menu', array(&$this,'wordgun_admin_pages'));
     add_action('wp_enqueue_scripts', array(&$this,'wordgun_scripts'));
     add_shortcode('wordgun', array(&$this,'wordgun_shortcode'));
+    add_action( 'wp_ajax_nopriv_send_wordgun', 'sendWordgun' );
+    add_action( 'wp_ajax_send_wordgun', 'sendWordgun' );
   }
 
   function wordgun_admin_pages() {
@@ -31,12 +35,14 @@ class wordgun {
 
     if(shortcode_exists('wordgun') && stripos($post->post_content,'[wordgun]') !== false) {
 
-      $pluginDIR = plugins_url().'/wordgun/';
+      // $pluginDIR = plugins_url().'/wordgun/';
       $parameters = array(
-        'dir' => $pluginDIR
+        // 'dir' => $pluginDIR,
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('wordgun')
         );
 
-      wp_enqueue_script('wordgun-ajax', $pluginDIR.'js/ajax.js', false, null, true);
+      wp_enqueue_script('wordgun-ajax', plugins_url().'/wordgun/js/ajax.js', false, null, true);
       wp_localize_script('wordgun-ajax', 'wordgun', $parameters );
 
       if(get_option('wg_bootstrap') === 'enabled') {
@@ -49,12 +55,9 @@ class wordgun {
 
   function wordgun_shortcode() {
 
-    $nonce = wp_create_nonce('wordgun');
-
     $wordgun =  '
       <form class="form" role="form" id="wordgun" method="POST">
         <input class="hidden" type="email" name="email_2" value="">
-        <input class="hidden" type="text" name="nonce" value="'.$nonce.'"
     ';
 
     if(get_option('wg_name') === 'enabled') {

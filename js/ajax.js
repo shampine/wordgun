@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
 
-  console.log(wordgun.dir);
-
   var mailgunURL, mailgun, response;
 
   mailgunURL = wordgun.dir + '/wordgun-send.php';
@@ -13,19 +11,15 @@ jQuery(document).ready(function($) {
     $('form#wordgun *').fadeOut(200);
     $('form#wordgun').prepend('<p class="wordgun-message">Your submission is being processed...</p>');
 
-    $.ajax({
-        type     : 'POST',
-        cache    : false,
-        url      : mailgunURL,
-        data     : $(this).serialize(),
-        success  : function(data) {
-          console.log(data);
-          responseSuccess(data);
-        },
-        error  : function(data) {
-          console.log('Silent failure.');
-        }
-    });
+    $.post( wordgun.ajaxurl, {
+          action : 'send_wordgun',
+          nonce : wordgun.nonce,
+          post : $('#wordgun').serialize()
+      },
+      function(response) {
+          console.log(response);
+          responseSuccess(response);
+      });
 
     return false;
 
@@ -38,7 +32,7 @@ jQuery(document).ready(function($) {
     if(response.status === 'success') {
       $('#wordgun').html('<p class="wordgun-message">Thanks for reaching out, I will contact you soon.</p>');
     } else {
-      $('#wordgun').html('<p class="wordgun-message">An error has been encountered, your form was not received.</p>');
+      $('#wordgun').html('<p class="wordgun-message">An error has been encountered, your form was not sent.</p>');
     }
 
 
