@@ -4,16 +4,16 @@ $disableSubject = get_option('wg_subject') === 'enabled' ? true : false;
 
 if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_mailgun') {
 
-  $mg_key = $_POST['mg_key'];
+  $mg_key = isset($_POST['mg_key']) ? $_POST['mg_key'] : '';
   update_option('mg_key', $mg_key);
 
-  $mg_domain = $_POST['mg_domain'];
+  $mg_domain = isset($_POST['mg_domain']) ? $_POST['mg_domain'] : '';
   update_option('mg_domain', $mg_domain);
 
-  $mg_to = $_POST['mg_to'];
+  $mg_to = isset($_POST['mg_to']) ? $_POST['mg_to'] : '';
   update_option('mg_to', $mg_to);
 
-  $mg_subject = $_POST['mg_subject'];
+  $mg_subject = isset($_POST['mg_subject']) ? $_POST['mg_subject'] : '';
   update_option('mg_subject', $mg_subject); ?>
 
   <div class="updated"><p><strong>Options saved.</strong></p></div><?php
