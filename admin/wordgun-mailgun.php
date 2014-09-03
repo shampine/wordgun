@@ -4,19 +4,27 @@ $disableSubject = get_option('wg_subject') === 'enabled' ? true : false;
 
 if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_mailgun') {
 
-  $mg_key = isset($_POST['mg_key']) ? $_POST['mg_key'] : '';
-  update_option('mg_key', $mg_key);
+  if(1 === check_admin_referer('wordgun-mailgun-settings')) {
 
-  $mg_domain = isset($_POST['mg_domain']) ? $_POST['mg_domain'] : '';
-  update_option('mg_domain', $mg_domain);
+    $mg_key = isset($_POST['mg_key']) ? $_POST['mg_key'] : '';
+    update_option('mg_key', $mg_key);
 
-  $mg_to = isset($_POST['mg_to']) ? $_POST['mg_to'] : '';
-  update_option('mg_to', $mg_to);
+    $mg_domain = isset($_POST['mg_domain']) ? $_POST['mg_domain'] : '';
+    update_option('mg_domain', $mg_domain);
 
-  $mg_subject = isset($_POST['mg_subject']) ? $_POST['mg_subject'] : '';
-  update_option('mg_subject', $mg_subject); ?>
+    $mg_to = isset($_POST['mg_to']) ? $_POST['mg_to'] : '';
+    update_option('mg_to', $mg_to);
 
-  <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+    $mg_subject = isset($_POST['mg_subject']) ? $_POST['mg_subject'] : '';
+    update_option('mg_subject', $mg_subject); ?>
+
+    <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+
+  } else {
+
+    die('Permission denied.');
+
+  }
 
 } else {
 
@@ -38,6 +46,7 @@ if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_mailgun') {
 
   <form name="wordgun_mailgun" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="form_name" value="wordgun_mailgun">
+    <?php wp_nonce_field('wordgun-mailgun-settings'); ?>
     <table class="form-table">
       <tr>
         <th><label for="mg_key">API Key</label></th>

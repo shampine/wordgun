@@ -2,10 +2,18 @@
 
 if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_settings') {
 
-  $wg_bootstrap = $_POST['wg_bootstrap'];
-  update_option('wg_bootstrap', $wg_bootstrap); ?>
+  if(1 === check_admin_referer('wordgun-settings')) {
 
-  <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+    $wg_bootstrap = $_POST['wg_bootstrap'];
+    update_option('wg_bootstrap', $wg_bootstrap); ?>
+
+    <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+
+  } else {
+
+    die('Permission denied.');
+
+  }
 
 } else {
 
@@ -24,6 +32,7 @@ if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_settings') {
 
   <form name="wordgun_settings" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="form_name" value="wordgun_settings">
+    <?php wp_nonce_field('wordgun-settings'); ?>
     <table class="form-table">
       <tr>
         <th><label for="wg_bootstrap">Enable Bootstrap</label></th>

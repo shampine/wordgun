@@ -2,19 +2,27 @@
 
 if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_form') {
 
-  $wg_name = $_POST['wg_name'];
-  update_option('wg_name', $wg_name);
+  if(1 === check_admin_referer('wordgun-form-settings')) {
 
-  $wg_email = $_POST['wg_email'];
-  update_option('wg_email', $wg_email);
+    $wg_name = $_POST['wg_name'];
+    update_option('wg_name', $wg_name);
 
-  $wg_subject = $_POST['wg_subject'];
-  update_option('wg_subject', $wg_subject);
+    $wg_email = $_POST['wg_email'];
+    update_option('wg_email', $wg_email);
 
-  $wg_message = $_POST['wg_message'];
-  update_option('wg_message', $wg_message); ?>
+    $wg_subject = $_POST['wg_subject'];
+    update_option('wg_subject', $wg_subject);
 
-  <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+    $wg_message = $_POST['wg_message'];
+    update_option('wg_message', $wg_message); ?>
+
+    <div class="updated"><p><strong>Options saved.</strong></p></div><?php
+
+  } else {
+
+    die('Permission denied.');
+
+  }
 
 } else {
 
@@ -36,6 +44,7 @@ if(isset($_POST['form_name']) && $_POST['form_name'] == 'wordgun_form') {
 
   <form name="wordgun_form" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
     <input type="hidden" name="form_name" value="wordgun_form">
+    <?php wp_nonce_field('wordgun-form-settings'); ?>
     <table class="form-table">
       <tr>
         <th><label for="mg_key">Name</label></th>
