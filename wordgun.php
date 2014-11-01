@@ -65,7 +65,7 @@ class wordgun {
       $name =  '
         <div class="form-group">
           <label for="wg_name" class="control-label">Name</label>
-          <input type="name" name="wg_name" class="form-control" placeholder="Name" required>
+          <input type="name" id="wg_name" name="wg_name" class="form-control" placeholder="Name" required>
         </div>
       ';
 
@@ -77,7 +77,7 @@ class wordgun {
       $email = '
         <div class="form-group">
           <label for="wg_email" class="control-label">Email</label>
-          <input type="email" name="wg_email" class="form-control" placeholder="Email" required>
+          <input type="email" id="wg_email" name="wg_email" class="form-control" placeholder="Email" required>
         </div>
       ';
 
@@ -89,7 +89,7 @@ class wordgun {
       $subject = '
         <div class="form-group">
           <label for="wg_subject" class="control-label">Subject</label>
-          <input class="form-control" name="wg_subject" rows="6" placeholder="Subject" required>
+          <input class="form-control" id="wg_subject" name="wg_subject" rows="6" placeholder="Subject" required>
         </div>
       ';
 
@@ -101,7 +101,7 @@ class wordgun {
       $message = '
         <div class="form-group">
           <label for="wg_message" class="control-label">Message</label>
-          <textarea class="form-control" name="wg_message" rows="6" placeholder="Message" required></textarea>
+          <textarea class="form-control" id="wg_message" name="wg_message" rows="6" placeholder="Message" required></textarea>
         </div>
       ';
 
