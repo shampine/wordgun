@@ -35,9 +35,7 @@ class wordgun {
 
     if(shortcode_exists('wordgun') && stripos($post->post_content,'[wordgun]') !== false) {
 
-      // $pluginDIR = plugins_url().'/wordgun/';
       $parameters = array(
-        // 'dir' => $pluginDIR,
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('wordgun')
         );
@@ -121,5 +119,3 @@ class wordgun {
 
 }
 new wordgun();
-
-
